@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ContactMenager.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ContactMenager.Controllers
 {
@@ -9,12 +10,20 @@ namespace ContactMenager.Controllers
             return View();
         }
 
-        public string[] Get()
+        public Contact[] Get()
         {
-            return new string[]
+            return new Contact[]
             {
-                "Hello",
-                "World"
+                new Contact
+                {
+                    Id = 1,
+                    Name = "Glenn Block"
+                },
+                new Contact
+                {
+                    Id = 2,
+                    Name = "Dan Roth"
+                }
             };
         }
     }
