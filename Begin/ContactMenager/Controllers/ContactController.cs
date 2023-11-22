@@ -1,5 +1,6 @@
 ﻿using ContactMenager.Models;
 using Microsoft.AspNetCore.Mvc;
+using ContactMenager.Services;
 
 namespace ContactMenager.Controllers
 {
@@ -10,21 +11,16 @@ namespace ContactMenager.Controllers
             return View();
         }
 
+        private ContactRepository contactRepository;
+
+        public ContactController()
+        {
+            this.contactRepository = new ContactRepository();
+        }
+
         public Contact[] Get()
         {
-            return new Contact[]
-            {
-                new Contact
-                {
-                    Id = 1,
-                    Name = "Glenn Block"
-                },
-                new Contact
-                {
-                    Id = 2,
-                    Name = "Dan Roth"
-                }
-            };
+            return contactRepository.GetAllContacts();
         }
     }
 }
