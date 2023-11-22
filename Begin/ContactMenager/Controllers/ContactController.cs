@@ -1,16 +1,12 @@
 ﻿using ContactMenager.Models;
 using Microsoft.AspNetCore.Mvc;
 using ContactMenager.Services;
+using System.Web.Http;
 
 namespace ContactMenager.Controllers
 {
-    public class ContactController : Controller
+    public class ContactController : ApiController
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         private ContactRepository contactRepository;
 
         public ContactController()
