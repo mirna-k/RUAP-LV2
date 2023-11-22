@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using System.Web.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace ContactMenager.Services
 {
@@ -12,7 +13,6 @@ namespace ContactMenager.Services
         public ContactRepository()
         {
             var ctx = HttpContext.Current;
-            //var ctx = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
 
             if (ctx != null)
             {
@@ -45,13 +45,37 @@ namespace ContactMenager.Services
             }
 
             return new Contact[]
-                {
-            new Contact
             {
-                Id = 0,
-                Name = "Placeholder"
+            new Contact
+                {
+                    Id = 0,
+                    Name = "Placeholder"
+                }
+            };
+        }
+
+        public bool SaveContact(Contact contact)
+        {
+            var ctx = HttpContext.Current;
+
+            if (ctx != null)
+            {
+                try
+                {
+                    var currentData = ((Contact[])ctx.Cache[CacheKey]).ToList();
+                    currentData.Add(contact);
+                    ctx.Cache[CacheKey] = currentData.ToArray();
+
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                    return false;
+                }
             }
-                };
+
+            return false;
         }
     }
 }
